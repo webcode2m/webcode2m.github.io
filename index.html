@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="WebCode2M: A Real-World Dataset for Code Generation from Webpage Designs">
+  <meta name="keywords" content="WebCode2M">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WebCode2M: A Real-World Dataset for Code Generation from Webpage Designs</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/salt-logo.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+    /* Three image containers (use 25% for four, and 50% for two, etc) */
+    .imgcolumn {
+      float: left;
+      width: 50%;
+      padding: 10px
+    }
+
+    /* Clear floats after image containers */
+    .imgrow::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    table.customTable {
+      width: 50%;
+      background-color: #FFFFFF;
+      border-collapse: collapse;
+      border-width: 2px;
+      border-color: rgb(214, 236, 244);
+      border-style: solid;
+      color: #000000;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    table.customTable td {
+      border-width: 2px;
+      border-color: rgb(214, 236, 244);
+      border-style: solid;
+      padding: 5px;
+      text-align: center; 
+      vertical-align: middle;
+    }
+
+    table.customTable th {
+      border-width: 2px;
+      border-color: rgb(214, 236, 244);
+      border-style: solid;
+      padding: 5px;
+    }
+    
+    table.customTable thead {
+      background-color: rgb(214, 236, 244);
+    }
+    </style>
+</head>
+<body>
+  
+  
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">WebCode2M: A Real-World Dataset for Code Generation from Webpage Designs</h1>
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://noviscl.github.io/">Yi Gui*</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://stevenyzzhang.github.io/website/">Zhen Li*</a><sup>1</sup>,</span>
+            <span class="author-block">
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Huazhong University of Science and Technology</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <img src="./static/images/stanford-university-logo-2.png" width="200" align="absmiddle"/>  
+            </span>
+            <span class="author-block">
+              <img src="./static/images/GeorgiaTech_RGB.png" style="margin-right: 50px;" width="200" align="absmiddle"/>  
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <img src="./static/images/Microsoft_logo.svg" style="margin-right: 50px;" width="200" align="absmiddle"/>  
+            </span>
+            <span class="author-block">
+              <img src="./static/images/DeepMind_new_logo.png" style="margin-right: 50px;" width="200" align="absmiddle"/>  
+            </span>
+          </div> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/anonymouscodeeee/repo3"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/anonymouscodee/webcode2m"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Automatically generating webpage code from webpage designs can significantly reduce the workload of front-end developers, and recent Multimodal Large Language Models (MLLMs) have shown promising potential in this area. <strong>However, our investigation reveals that most existing MLLMs are constrained by the absence of high-quality, large-scale, real-word datasets, resulting in inadequate performance in automated webpage code generation. </strong>To fill this gap, this paper introduces WebCode2M, a new dataset comprising <strong>2.56 million</strong> instances, each containing a  design image along with the corresponding webpage code and layout details. <strong>Sourced from real-world web resources, WebCode2M offers a rich and valuable dataset for webpage code generation across a variety of user scenarios. </strong> dataset quality is ensured by a highly accurate scoring model that filters out instances with aesthetic deficiencies or other incomplete elements. To validate the effectiveness of our proposed dataset, we introduce a baseline model based on the Vision Transformer (ViT), named WebCoder, and establish a benchmark for fair comparison. Additionally, we introduce a new metric, TreeBLEU, to measure the structural hierarchy recall. <strong>The benchmarking results demonstrate that our dataset significantly improves the ability of MLLMs to generate code from webpage designs, confirming its effectiveness and usability for future applications in front-end design tools. </strong>Finally, we highlight several practical challenges introduced by our dataset, calling for further research. We have hosted the WebCode2M on an anonymous webpage: https://webcode2m-anonymous.github.io.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Dataset Comparison</h2>
+          <p>Here are representative screenshots of webpages in WebCode2M and other datasets. From left to right are pix2code, WebSight, and our WebCode2M dataset. <strong>Compared to the first two artificially synthesized datasets, ours is derived from real-world online websites, showcasing significantly greater diversity in elements, content, colors, and structural layouts.</strong></p>
+          <img src="./static/img/samples.svg" class="example-image" alt="Example image."/>
+        </div>
+      </div>
+    </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Pipeline Overview</h2>
+          <p>The aim of this study is to curate a dataset that facilitates training neural models to generate code from webpage designs. As large-scale human-designed screenshots are hard to collect manually, we opt to reversely generate screenshot image from a curated open-source web dataset via rendering the webpage code. Following image illustrates the pipeline for constructing WebCode2M, encompassing steps such as code purification, HTML rendering, filtering with a neural scorer, and layout tree extraction.</p>
+          <img src="./static/img/workflow.svg" class="example-image" alt="Example image."/>
+        </div>
+      </div>
+    </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Key Characteristics Analysis</h2>
+          <p>Upon acquiring the final dataset WebCode2M, we conduct an analysis to identify several key characteristics. To quantitatively assess the diversity and quality of our dataset, we employ the same statistical metrics used in Design2Code, facilitating a comparison with other datasets. The results are presented in the following table. Specifically, Avg. Len represents the token length as determined by the GPT-2 tokenizer; Avg. Tags indicates the total number of tags in the HTML code; Avg. Unique Tags denotes the count of distinct tags in the HTML code; and Avg. DOM Depth signifies the maximum depth of the HTML's DOM Tree.</p>
+          <img src="./static/img/datainfo.png" class="example-image" alt="Example image." />
+        </div>
+      </div>
+    </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Benchmark Performance: Specialized Models</h2>
+          <p>Following table presents the performance of WebCoder both on the WebSight and WebCode2M datasets, compared to other benchmark models on the WebSight dataset. From this figure, we can observe that our method consistently outperforms all specialized baselines across all three metrics on the real-world test dataset, noting that these specialized models were fine-tuned on the WebSight dataset. Comparative experiments also demonstrate that the base model, Pix2Struct, achieves a significant performance boost when finetuned on our training dataset compared to WebSight. For TreeBLEU—a metric measuring the recall of 1-height subtrees in the target DOM tree—our approach surpasses both specialized and general-purpose models, indicating that our model better reflects real-world node types and substructures. <strong>Additionally, on the two visual similarity metrics—visual score and CLIP similarity—our model exceeds most general-purpose models and either matches or outperforms GPT-4V.</strong> Collectively, these results demonstrate that our dataset offers greater practical potential than synthetically generated datasets and suggest that our proposed training dataset can effectively unleash the potential of MLLMs in webpage generation.</p>
+          <img src="./static/img/r1.png" class="example-image" alt="Example image."/>
+        </div>
+      </div>
+    </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Benchmark Performance: General-purpose MLLMs </h2>
+          <p>Following table benchmarks the performance of several general-purpose MLLMs using the WebCode2M test dataset. From this figure, we can observe several interesting findings: <strong>(1) Generating lengthy code is challenging.</strong> Almost all metrics for nearly all models drop significantly as the target code length increases. For example, as the dataset transitions from WebCode2M-short to WebCode2M-mid and finally to WebCode2M-long, the highest TreeBLEU score for specialized models drops from 0.35 to 0.15, the highest CLIP similarity decreases from 0.73 to 0.69, and the highest Visual Score declines from 0.78 to 0.65. <strong>(2) Model size matters.</strong> In LLaVA family, several models show a significant improvement across all metrics as model parameters increase, with LLaVA-v1.5-7B and LLaVA-onevision-7B achieving the best performance, while LLaVA-onevision-0.5B performs poorly across all metrics, indicating that MLLMs require more parameters to achieve better results in webpage generation tasks. <strong>(3) Most general-purpose MLLMs struggle with webpage code generation.</strong> Among these models, only GPT-4V matches the performance of our model trained onWebCode2M, while GPT-4o significantly outperforms all other models. All remaining general-purpose models generally underperform compared to specialized models, with consistently low scores across all metrics.</p>
+          <img src="./static/img/r2.png" class="example-image" alt="Example image."/>
+        </div>
+      </div>
+    </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@misc{si2024WebCode2M,
+      title={WebCode2M: A Real-World Dataset for Code Generation from Webpage Designs},
+      author={anonymous authors},
+      year={2024},
+      eprint={xxxx.xxxx},
+      archivePrefix={xxxx},
+      primaryClass={cs.CL}
+  }</code></pre>
+  </div>
+</section>
+
+
+<section class="section" id="Acknowledgement">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Usage and License Notices</h2>
+    <p>
+      The data, code and model checkpoint are intended and licensed for research use only. Please do not use them for any malicious purposes.
+    </p>
+    <p>
+      The dataset is built on top of the Common Crawl dataset, under the CC-BY-4.0 License. 
+    </p>
+  </div>
+</section>
+
+
+<!-- 
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This source code of this website is borrowed from <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer> -->
+
+</body>
+</html>
